@@ -211,6 +211,7 @@ module Liquid
       rescue Liquid::MemoryError => e
         context.handle_error(e)
       ensure
+        @rendered_context_scopes = context.scopes[0]
         @errors = context.errors
       end
     end
@@ -219,6 +220,10 @@ module Liquid
       @rethrow_errors = true
       render(*args)
     end
+
+    def get_scopes
+      @rendered_context_scopes
+    end  
 
     private
 
